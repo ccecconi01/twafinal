@@ -85,8 +85,8 @@ app.get('/api/mobilities', async (req, res) => {
 
     // Filtro por tipo de mobilidade
     const selectedTypes = [];
-    if (studyLong === 'true') selectedTypes.push('Estudos (longa-duração)');
-    if (studyShort === 'true') selectedTypes.push('Estudos (curta-duração)');
+    if (studyLong === 'true') selectedTypes.push('Estudos (longa duração)');
+    if (studyShort === 'true') selectedTypes.push('Estudos (curta duração)');
     if (internship === 'true') selectedTypes.push('Estágios');
     if (teaching === 'true') selectedTypes.push('Ensino');
     if (training === 'true') selectedTypes.push('Formação');
@@ -152,4 +152,4 @@ app.get('/api/stats', async (req, res) => {
 });
 
 const PORT = 3000;
-app.listen(PORT, () => console.log(`🚀 ISLA API rodando na porta ${PORT}`));
+app.listen(PORT, () => console.log(` rodando na porta ${PORT}`));

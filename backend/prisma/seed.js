@@ -1,32 +1,10 @@
-// prisma/seed.js
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// Dados Mockados para teste inicial (Substituir pela leitura real do CSV se quiser fazer parsing)
-// Estou colocando Strings nos numeros como pedido ("2+2")
-const partnershipsData = [
-  {
-    country: "ALEMANHA - DE",
-    institution: "HNU - Neu Ulm",
-    website: "https://www.hnu.de/en/",
-    erasmusCode: "D ULM03",
-    areas: "GE",
-    studentsStudyCount: "4",
-    studentsStudyMonths: "5",
-    staffTeachingCount: "2",
-    staffTeachingDur: "5 dias",
-    blendedIntensive: false
-  },
-  {
-    country: "BÉLGICA - BE",
-    institution: "Karel de Grote University College",
-    website: "https://www.kdg.be/en",
-    erasmusCode: "B ANTWERP59",
-    areas: "RH - GE",
-    studentsStudyCount: "2+2", // Exemplo do requisito de string
-    studentsStudyMonths: "5",
-    blendedIntensive: true
-  }
+const usersData = [
+  { username: 'sigq', password: 's1i2g3q4', role: 'viewer' },
+  { username: 'grim', password: 'g1r2i3m4', role: 'admin' }, 
+  { username: 'pres', password: 'p1r2e3s4', role: 'viewer' }
 ];
 
 const mobilitiesData = [
@@ -37,11 +15,11 @@ const mobilitiesData = [
     status: "ONGOING",
     school: "GESTAO",
     country: "ALEMANHA",
-    candidateEmail: "nominated.student@gmail.com",
-    candidateFirstName: "Desiderius",
-    candidateLastName: "Erasmusis",
-    startDate: new Date("2024-09-01"),
-    endDate: new Date("2025-01-30"),
+    candidateEmail: "aluno.exemplo@gmail.com",
+    candidateFirstName: "Tiago",
+    candidateLastName: "Silva",
+    startDate: new Date("2024-09-15"),
+    endDate: new Date("2025-02-15"),
     receivingInstitution: "HNU - Neu Ulm",
     sendingInstitution: "ISLA Gaia"
   },
@@ -62,35 +40,24 @@ const mobilitiesData = [
   }
 ];
 
-const usersData = [
-  { username: 'sigq', password: 's1i2g3q4', role: 'viewer' },
-  { username: 'grim', password: 'g1r2i3m4', role: 'admin' }, // grim é o Admin
-  { username: 'pres', password: 'p1r2e3s4', role: 'viewer' }
-];
-
-  
 async function main() {
-  console.log('Limpando banco...');
-  await prisma.mobility.deleteMany();
-  await prisma.partnership.deleteMany();
+  console.log('Limpando Utilizadores e Mobilidades...');
+  
+  // NÃO limpamos as Partnerships aqui para não apagar o teu CSV
   await prisma.user.deleteMany();
+  await prisma.mobility.deleteMany();
 
-  console.log('Inserindo Parcerias...');
-  for (const p of partnershipsData) {
-    await prisma.partnership.create({ data: p });
-  }
-
-  console.log('Inserindo Mobilidades...');
-  for (const m of mobilitiesData) {
-    await prisma.mobility.create({ data: m });
-  }
-
-  console.log('Criando Users...');
+  console.log('Criando Utilizadores...');
   for (const u of usersData) {
     await prisma.user.create({ data: u });
   }
+
+  console.log('Criando Mobilidades Fake...');
+  for (const m of mobilitiesData) {
+    await prisma.mobility.create({ data: m });
+  }
   
-  console.log('Seed concluído!');
+  console.log('Seed concluído! (Parcerias mantidas)');
 }
 
 main()
