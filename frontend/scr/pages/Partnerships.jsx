@@ -28,7 +28,8 @@ export default function Partnerships({ user }) {
     studentsStudyCount: '',
     studentsInternshipCount: '',
     staffTeachingCount: '',
-    staffTrainingCount: ''
+    staffTrainingCount: '',
+    blendedIntensive: false
   };
   const [newForm, setNewForm] = useState(initialFormState);
   const [showNewCountryModal, setShowNewCountryModal] = useState(false);
@@ -293,7 +294,7 @@ export default function Partnerships({ user }) {
                  ))}
                </div>
              </div>
-             
+
              <input placeholder="Link Website" value={newForm.website} onChange={e => setNewForm({...newForm, website: e.target.value})} style={{ gridColumn: '1 / 3', padding: '10px' }} />
              
              {/* Campos de Vagas */}
@@ -305,6 +306,17 @@ export default function Partnerships({ user }) {
              <div style={{ gridColumn: '1 / 3', fontSize: '0.85rem', color: '#666', fontStyle: 'italic' }}>
                * Campos em branco = N/A
              </div>
+
+            {/* Blended Intensive - manter no fim para não confundir com áreas */}
+            <label style={{ gridColumn: '1 / 3', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 'bold', color: '#333' }}>
+              <input
+                type="checkbox"
+                checked={newForm.blendedIntensive}
+                onChange={e => setNewForm({ ...newForm, blendedIntensive: e.target.checked })}
+                style={{ transform: 'scale(1.1)', cursor: 'pointer' }}
+              />
+              Possui Blended Intensive (BIP)
+            </label>
              
              <button type="submit" className="btn-primary" style={{ gridColumn: '1 / 3', padding: '12px' }}>Guardar Parceria</button>
           </form>
@@ -401,7 +413,7 @@ export default function Partnerships({ user }) {
                  ))}
                </div>
              </div>
-             
+
              <input placeholder="Link Website" value={newForm.website} onChange={e => setNewForm({...newForm, website: e.target.value})} style={{ gridColumn: '1 / 3', padding: '10px' }} />
              
              {/* Campos de Vagas */}
@@ -413,6 +425,17 @@ export default function Partnerships({ user }) {
              <div style={{ gridColumn: '1 / 3', fontSize: '0.85rem', color: '#666', fontStyle: 'italic' }}>
                * Campos em branco = N/A
              </div>
+
+            {/* Blended Intensive - manter no fim para não confundir com áreas */}
+            <label style={{ gridColumn: '1 / 3', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 'bold', color: '#333' }}>
+              <input
+                type="checkbox"
+                checked={newForm.blendedIntensive}
+                onChange={e => setNewForm({ ...newForm, blendedIntensive: e.target.checked })}
+                style={{ transform: 'scale(1.1)', cursor: 'pointer' }}
+              />
+              Possui Blended Intensive (BIP)
+            </label>
              
              <button type="submit" className="btn-primary" style={{ gridColumn: '1 / 3', padding: '12px' }}>Atualizar Parceria</button>
           </form>
@@ -512,7 +535,8 @@ export default function Partnerships({ user }) {
                                 studentsStudyCount: p.studentsStudyCount || '',
                                 studentsInternshipCount: p.studentsInternshipCount || '',
                                 staffTeachingCount: p.staffTeachingCount || '',
-                                staffTrainingCount: p.staffTrainingCount || ''
+                                staffTrainingCount: p.staffTrainingCount || '',
+                                blendedIntensive: !!p.blendedIntensive
                               }); 
                             }} 
                             style={{ border:'none', background:'transparent', color:'#4CAF50', cursor:'pointer', padding: '6px 8px', borderRadius: '4px', fontSize: '1.1rem' }}
