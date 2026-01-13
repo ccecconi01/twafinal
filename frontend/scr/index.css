@@ -1,0 +1,60 @@
+:root {
+  --isla-blue: #004876;
+  --isla-yellow: #fecb00;
+  --isla-grey: #f2f2f2;
+  --text-dark: #333;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--isla-grey);
+  margin: 0;
+  color: var(--text-dark);
+}
+
+.btn-primary {
+  background-color: var(--isla-blue);
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: #003355;
+}
+
+.btn-icon {
+  background-color: var(--isla-yellow);
+  color: var(--isla-blue);
+  border: 1px solid var(--isla-blue);
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-left: 5px solid var(--isla-yellow);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 10px;
+}
+
+/* Dashboard Cards */
+.stat-card {
+  background: var(--isla-blue);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 4px;
+}
+.stat-number {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: var(--isla-yellow);
+}
