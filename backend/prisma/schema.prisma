@@ -45,7 +45,7 @@ model Mobility {
   // Campos de Controle Interno
   direction            String   // "IN" ou "OUT"
   role                 String   // "STUDENT" ou "STAFF"
-  type                 String   // Student: "Longa", "Curta", "Estagio" | Staff: "Ensino", "Formacao"
+  type                 String   // Student: "Estudos: Longa-Duração", "Estudos: Curta-Duração", "Estagio" | Staff: "Ensino", "Formacao"
   status               String   @default("PLANNED") // "COMPLETED", "ONGOING", "PLANNED"
   school               String   // "GESTAO" ou "TECNOLOGIA"
   country              String   // País de destino/origem
