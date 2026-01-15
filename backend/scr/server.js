@@ -45,7 +45,7 @@ app.get('/api/partnerships', async (req, res) => {
     if (training === 'true') where.staffTrainingCount = { notIn: ["N/A", "", "0"] };
 
     try {
-        const list = await prisma.partnership.findMany({ where, orderBy: { institution: 'asc' } });
+        const list = await prisma.partnership.findMany({ where, orderBy: { country: 'asc' } });
         res.json(list);
     } catch (e) {
         res.status(500).json({ error: "Erro ao listar parcerias" });

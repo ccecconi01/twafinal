@@ -147,6 +147,15 @@ export default function Partnerships({ user }) {
       }
   };
 
+  // Função para garantir que o URL tenha protocolo
+  const ensureProtocol = (url) => {
+    if (!url) return null;
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    }
+    return 'https://' + url;
+  };
+
   return (
     <div>
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: '20px' }}>
@@ -163,7 +172,7 @@ export default function Partnerships({ user }) {
       <div className="card" style={{ 
           display: 'grid', 
           gridTemplateColumns: '1fr 1fr 1fr 1fr',
-          gap: '15px', 
+          gap: '20px', 
           backgroundColor: '#fff',
           borderLeft: '5px solid var(--isla-yellow)',
           marginBottom: '20px' 
@@ -198,34 +207,37 @@ export default function Partnerships({ user }) {
           </select>
         </div>
 
-        {/* Coluna Checkboxes 1 */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.9rem', fontWeight: '500' }}>
-          <label style={{ fontSize: '0.95rem', fontWeight: 'bold', color: '#333', marginBottom: '0px', textDecoration: 'underline', textDecorationColor: 'var(--isla-yellow)', textDecorationThickness: '3px', textUnderlineOffset: '4px' }}>Tipo de Mobilidade</label>
-          <label style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <input type="checkbox" checked={filters.blended} onChange={e => setFilters({...filters, blended: e.target.checked})} style={{ transform: 'scale(1.2)', cursor: 'pointer' }} /> 
-            Blended Mobility (BIP)
-          </label>
-          <label style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <input type="checkbox" checked={filters.study} onChange={e => setFilters({...filters, study: e.target.checked})} style={{ transform: 'scale(1.2)', cursor: 'pointer' }} /> 
-            Vagas de Estudos
-          </label>
-          <label style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <input type="checkbox" checked={filters.internship} onChange={e => setFilters({...filters, internship: e.target.checked})} style={{ transform: 'scale(1.2)', cursor: 'pointer' }} /> 
-            Vagas de Estágio
-          </label>
-        </div>
+        {/* Coluna Checkboxes 1 e 2 - lado a lado */}
+        <div style={{ display: 'flex', gap: '15px' }}>
+          {/* Coluna Esquerda */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.9rem', fontWeight: '500', flex: 1 }}>
+            <label style={{ fontSize: '0.95rem', fontWeight: 'bold', color: '#333', marginBottom: '0px', textDecoration: 'underline', textDecorationColor: 'var(--isla-yellow)', textDecorationThickness: '3px', textUnderlineOffset: '4px' }}>Tipo de Mobilidade</label>
+            {/* <label style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <input type="checkbox" checked={filters.blended} onChange={e => setFilters({...filters, blended: e.target.checked})} style={{ transform: 'scale(1.2)', cursor: 'pointer' }} /> 
+              Blended Mobility (BIP)
+            </label> */}
+            <label style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <input type="checkbox" checked={filters.study} onChange={e => setFilters({...filters, study: e.target.checked})} style={{ transform: 'scale(1.2)', cursor: 'pointer' }} /> 
+              Vagas de Estudos
+            </label>
+            <label style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <input type="checkbox" checked={filters.internship} onChange={e => setFilters({...filters, internship: e.target.checked})} style={{ transform: 'scale(1.2)', cursor: 'pointer' }} /> 
+              Vagas de Estágio
+            </label>
+          </div>
 
-        {/* Coluna Checkboxes 2 */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.9rem', fontWeight: '500' }}>
-          <div style={{ height: '1.5rem' }}></div>
-          <label style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <input type="checkbox" checked={filters.teaching} onChange={e => setFilters({...filters, teaching: e.target.checked})} style={{ transform: 'scale(1.2)', cursor: 'pointer' }} /> 
-            Ensino (Docentes)
-          </label>
-          <label style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <input type="checkbox" checked={filters.training} onChange={e => setFilters({...filters, training: e.target.checked})} style={{ transform: 'scale(1.2)', cursor: 'pointer' }} /> 
-            Formação (Docentes e Colaboradores)
-          </label>
+          {/* Coluna Direita */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.9rem', fontWeight: '500', flex: 1 }}>
+            <div style={{ height: 'calc(0.95rem + 4px)' }}></div>
+            <label style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <input type="checkbox" checked={filters.teaching} onChange={e => setFilters({...filters, teaching: e.target.checked})} style={{ transform: 'scale(1.2)', cursor: 'pointer' }} /> 
+              Ensino (Docentes)
+            </label>
+            <label style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <input type="checkbox" checked={filters.training} onChange={e => setFilters({...filters, training: e.target.checked})} style={{ transform: 'scale(1.2)', cursor: 'pointer' }} /> 
+              Formação (Docentes e Colaboradores)
+            </label>
+          </div>
         </div>
       </div>
 
@@ -486,15 +498,15 @@ export default function Partnerships({ user }) {
       )}
 
       {/* Tabela de Dados */}
-      <div style={{ display: 'grid', gap: '10px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', marginTop: '30px' }}>
         {data.length === 0 && <p style={{textAlign:'center', color:'#888', padding: '20px'}}>Nenhuma parceria corresponde aos filtros selecionados.</p>}
         {data.map(p => (
-          <div key={p.id} className="card" style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start' }}>
+          <div key={p.id} className="card" style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', maxWidth: '1050px', width: '100%' }}>
             <div>
               <h3 style={{ margin: '0 0 5px 0', display:'flex', alignItems:'center', gap:'10px', color: 'var(--isla-blue)' }}>
                 {p.institution}
                 {p.website && (
-                  <a href={p.website} target="_blank" rel="noreferrer" className="btn-icon">
+                  <a href={ensureProtocol(p.website)} target="_blank" rel="noreferrer" className="btn-icon">
                     <FaExternalLinkAlt size={14} />
                   </a>
                 )}
