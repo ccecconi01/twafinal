@@ -1,3 +1,5 @@
+This project is published in GitHub: https://github.com/ccecconi01/twafinal
+
 ISLA Mobility Manager - README
 Release Notes v1.0.0
 This is the initial release of the ISLA Mobility Manager, a dedicated system for managing Erasmus+ international mobilities. This version focuses on automating the partnership management process and providing a clear overview of student and staff mobility flows.
@@ -16,10 +18,10 @@ High-Contrast Institutional UI: User interface designed following the ISLA Gaia 
 Setup Instructions
 Follow these steps to run the application from scratch. Ensure you have Node.js installed on your machine.
 
-1. Backend Configuration
+# 1. Backend Configuration
+
 Open your terminal, navigate to the backend folder and run the following commands:
 
-Bash
 
 # Enter the backend directory
 cd backend
@@ -40,10 +42,10 @@ npm run import-data
 npm run dev
 The backend server will be running at http://localhost:3000.
 
-2. Frontend Configuration
+# 2. Frontend Configuration
+
 Open a second terminal window (keep the backend one running), navigate to the frontend folder and run:
 
-Bash
 
 # Enter the frontend directory
 cd frontend
@@ -55,7 +57,7 @@ npm install
 npm run dev
 The frontend application will be running at http://localhost:5173. Open this URL in your browser to access the system.
 
-Access Credentials
+# Access Credentials
 You can use the following default credentials to test the system:
 
 Administrator:
