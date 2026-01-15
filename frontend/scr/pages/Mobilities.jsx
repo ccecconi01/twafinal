@@ -32,6 +32,7 @@ export default function Mobilities({ user }) {
     school: 'GESTAO',
     country: '',
     receivingInstitution: '',
+    sendingInstitution: 'ISLA Gaia',
     status: 'PLANNED',
     startDate: '',
     endDate: ''
@@ -83,7 +84,19 @@ export default function Mobilities({ user }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/mobilities', formData);
+      // Lógica de direção: OUTGOING vs INCOMING
+      const dataToSend = { ...formData };
+      if (formData.direction === 'OUT') {
+        // OUTGOING: universidade é receivingInstitution, ISLA é sendingInstitution
+        dataToSend.receivingInstitution = formData.receivingInstitution;
+        dataToSend.sendingInstitution = 'ISLA Gaia';
+      } else {
+        // INCOMING: universidade é sendingInstitution, ISLA é receivingInstitution
+        dataToSend.sendingInstitution = formData.receivingInstitution;
+        dataToSend.receivingInstitution = 'ISLA Gaia';
+      }
+      
+      await api.post('/mobilities', dataToSend);
       alert("Mobilidade criada com sucesso!");
       setShowForm(false);
       setFormData(initialFormState); // Limpa o formulário
@@ -98,7 +111,19 @@ export default function Mobilities({ user }) {
   const handleEdit = async (e) => {
     e.preventDefault();
     try {
-      await api.put(`/mobilities/${editingId}`, formData);
+      // Lógica de direção: OUTGOING vs INCOMING
+      const dataToSend = { ...formData };
+      if (formData.direction === 'OUT') {
+        // OUTGOING: universidade é receivingInstitution, ISLA é sendingInstitution
+        dataToSend.receivingInstitution = formData.receivingInstitution;
+        dataToSend.sendingInstitution = 'ISLA Gaia';
+      } else {
+        // INCOMING: universidade é sendingInstitution, ISLA é receivingInstitution
+        dataToSend.sendingInstitution = formData.receivingInstitution;
+        dataToSend.receivingInstitution = 'ISLA Gaia';
+      }
+      
+      await api.put(`/mobilities/${editingId}`, dataToSend);
       alert("Mobilidade atualizada com sucesso!");
       setEditingId(null);
       setFormData(initialFormState); // Limpa o formulário
@@ -353,6 +378,18 @@ export default function Mobilities({ user }) {
                 />
             </div>
 
+            {/* Status */}
+            <select 
+                value={formData.status} 
+                onChange={e => setFormData({...formData, status: e.target.value})}
+                style={{ padding: '8px' }}
+                required
+            >
+                <option value="PLANNED">Planeado</option>
+                <option value="ONGOING">Em Andamento</option>
+                <option value="COMPLETED">Concluído</option>
+            </select>
+
             <button type="submit" className="btn-primary" style={{ gridColumn: '1 / 3', marginTop:'10px' }}>
                 Salvar Registo
             </button>
@@ -468,6 +505,18 @@ export default function Mobilities({ user }) {
                     value={formData.endDate} onChange={e => setFormData({...formData, endDate: e.target.value})}
                 />
             </div>
+
+            {/* Status */}
+            <select 
+                value={formData.status} 
+                onChange={e => setFormData({...formData, status: e.target.value})}
+                style={{ padding: '8px' }}
+                required
+            >
+                <option value="PLANNED">Planeado</option>
+                <option value="ONGOING">Em Andamento</option>
+                <option value="COMPLETED">Concluído</option>
+            </select>
 
             <button type="submit" className="btn-primary" style={{ gridColumn: '1 / 3', marginTop:'10px' }}>
                 Atualizar Registo

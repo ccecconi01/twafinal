@@ -60,6 +60,21 @@ app.post('/api/partnerships', verifyAdmin, async (req, res) => {
         res.status(500).json({ error: "Erro ao criar parceria" });
     }
 });
+
+// Atualizar parceria (só admin)
+app.put('/api/partnerships/:id', verifyAdmin, async (req, res) => {
+    const id = Number(req.params.id);
+    if (Number.isNaN(id)) {
+        return res.status(400).json({ error: 'ID inválido' });
+    }
+
+    try {
+        const updated = await prisma.partnership.update({ where: { id }, data: req.body });
+        res.json(updated);
+    } catch (e) {
+        res.status(500).json({ error: "Erro ao atualizar: verifique os dados" });
+    }
+});
 // Rota Deletar parceria (só admin)
 app.delete('/api/partnerships/:id', verifyAdmin, async (req, res) => {
     try {
